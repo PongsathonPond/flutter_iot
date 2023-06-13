@@ -1,0 +1,12 @@
+flutter_native_splash:
+  color: "#25292b"
+  image: assets/images/logo_idev.png
+  background-color: "#25292b"
+
+  android_12:
+    color: "#25292b"
+    image: assets/images/logo_idev.png
+    background-color: "#25292b"
+
+
+  web: false

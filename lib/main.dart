@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -17,19 +19,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AnimatedSplashScreen(
-            duration: 2000,
-            splash: const HomePage(),
-            nextScreen: const HomePage(),
-            splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: Colors.blue),
-      debugShowCheckedModeBanner: false,);
-
+      home: const HomePage(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
-
-
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -40,139 +34,394 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.indigo.shade50,
-        body: SafeArea(
-          child: Container(
-            margin: const EdgeInsets.only(top: 18, left: 24, right: 24),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'HI Pond',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    RotatedBox(
-                      quarterTurns: 135,
-                      child: Icon(
-                        Icons.bar_chart_rounded,
-                        size: 28,
-                        color: Colors.blue,
-                      ),
-                    )
-                  ],
-                ),
-                Expanded(
-                    child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    const SizedBox(height: 32),
-                    Center(
-                      child:SvgPicture.asset('assets/images/home.svg',width: 250,height: 200,)
-                          // Image.asset('assets/images/123.jpeg', scale: 1.2),
-
-                    ),
-                    const SizedBox(height: 16),
-                    const Center(
-                      child: Text(
-                        'IDEV IOT',
-                        style: TextStyle(
-                            fontSize: 32, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text('Service',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold
-                        ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _cardMenu(
-                          title: 'CAMERA',
-                          icon:'assets/images/temperature.png',
-                            color: Colors.blueAccent,
-                            fontColor: Colors.white
-                        ),
-                        _cardMenu(
-                          onTap: (){},
-                          title: 'TEMPERATURE',
-                          icon:'assets/images/temperature.png',
-                          color: Colors.blueAccent,
-                          fontColor: Colors.white
-
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _cardMenu(
-                          title: 'ENERGY',
-                          icon:'assets/images/water.png',
-                        ),
-                        _cardMenu(
-                          title: 'ENERGY',
-                          icon:'assets/images/entertainment.png',
-                        ),
-                      ],
-                    )
-                  ],
-                ))
-              ],
-            ),
-          ),
-        )
-
-    );
+  void initState() {
+    super.initState();
+    initialization();
   }
 
-  Widget _cardMenu({
-    required String title,
-    required String icon ,
-    VoidCallback? onTap,
-    Color color = Colors.white,
-    Color fontColor = Colors.grey,
+  void initialization() async {
+    await Future.delayed(const Duration(seconds: 3));
 
-  }){
+    FlutterNativeSplash.remove();
+  }
 
-    return GestureDetector(
-    onTap:onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 30),
-        width: 150,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          color: color,
-
-        ),
-        child: Column(
-          children: [
-            Image.asset(icon),
-            const SizedBox(height: 10),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: fontColor,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(74, 72, 72, 100),
+      body: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.only(top: 18, left: 24, right: 24),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'HI Pond',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Pond',
+                    ),
+                  ),
+                  RotatedBox(
+                    quarterTurns: 135,
+                    child: Icon(
+                      Icons.bar_chart_rounded,
+                      size: 28,
+                      color: Colors.blue,
+                    ),
+                  )
+                ],
               ),
-            ),
-          ],
+              Expanded(
+                  flex: 3,
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      const SizedBox(height: 32),
+                      Center(
+                          child: SvgPicture.asset(
+                        'assets/images/home.svg',
+                        width: 10,
+                        height: 200,
+                      )
+                          // Image.asset('assets/images/123.jpeg', scale: 1.2),
+                          ),
+                      const SizedBox(height: 16),
+                      const Center(
+                        child: Text(
+                          'IDEV IOT APP',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Pond',
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Service',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Pond',
+                            color: Colors.white),
+                      ),
+
+                    ],
+                  )),
+
+              Expanded(
+                flex: 3,
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 1, left: 1, right: 1,bottom: 4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 5,
+                              blurRadius: 6,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [
+                              0.1,
+                              0.4,
+                            ],
+                            colors: [
+                              Colors.blueAccent,
+                              Colors.blue,
+                            ],
+                          ),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SvgPicture.asset("assets/test.svg", width: 50),
+                              Image.asset('assets/images/temperature.png'),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'POWER',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Pond',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 1, left: 1, right: 1,bottom: 4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 5,
+                              blurRadius: 6,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [
+                              0.1,
+                              0.4,
+                            ],
+                            colors: [
+                              Colors.blueAccent,
+                              Colors.blue,
+                            ],
+                          ),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SvgPicture.asset("assets/test.svg", width: 50),
+                              Image.asset('assets/images/temperature.png'),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'POWER',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Pond',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 1, left: 1, right: 1,bottom: 4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 5,
+                              blurRadius: 6,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [
+                              0.1,
+                              0.4,
+                            ],
+                            colors: [
+                              Colors.blueAccent,
+                              Colors.blue,
+                            ],
+                          ),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SvgPicture.asset("assets/test.svg", width: 50),
+                              Image.asset('assets/images/temperature.png'),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'POWER',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Pond',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 1, left: 1, right: 1,bottom: 4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 5,
+                              blurRadius: 6,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [
+                              0.1,
+                              0.4,
+                            ],
+                            colors: [
+                              Colors.blueAccent,
+                              Colors.blue,
+                            ],
+                          ),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SvgPicture.asset("assets/test.svg", width: 50),
+                              Image.asset('assets/images/temperature.png'),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'POWER',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Pond',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 1, left: 1, right: 1,bottom: 4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 5,
+                              blurRadius: 6,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [
+                              0.1,
+                              0.4,
+                            ],
+                            colors: [
+                              Colors.blueAccent,
+                              Colors.blue,
+                            ],
+                          ),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SvgPicture.asset("assets/test.svg", width: 50),
+                              Image.asset('assets/images/temperature.png'),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'POWER',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Pond',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 1, left: 1, right: 1,bottom: 4),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              spreadRadius: 5,
+                              blurRadius: 6,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            stops: [
+                              0.1,
+                              0.4,
+                            ],
+                            colors: [
+                              Colors.blueAccent,
+                              Colors.blue,
+                            ],
+                          ),
+                          color: Colors.blueAccent,
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SvgPicture.asset("assets/test.svg", width: 50),
+                              Image.asset('assets/images/temperature.png'),
+                              const SizedBox(height: 6),
+                              const Text(
+                                'POWER',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Pond',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );
-
   }
-
 }
