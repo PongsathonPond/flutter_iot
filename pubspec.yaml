@@ -39,6 +39,7 @@ dependencies:
   lottie: ^2.3.2
   flutter_native_splash: ^2.2.19
   hexcolor: ^3.0.1
+  lite_rolling_switch: ^1.0.1
 
 dev_dependencies:
   flutter_test:
